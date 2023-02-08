@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCommunityRequest;
+use App\Http\Requests\UpdateCommunityRequest;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class CommunityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -22,19 +26,23 @@ class CommunityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCommunityRequest $request
+     * @return CommunityResource
      */
-    public function store(Request $request)
+    public function store(StoreCommunityRequest $request)
     {
-        //
+        $comunidad = Community::create([
+            'name'=> $request->name,
+        ]);
+        return new CommunityResource($comunidad);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
+     * @param Community $community
+     * @return CommunityResource
      */
     public function show(Community $community)
     {
@@ -44,23 +52,26 @@ class CommunityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
+     * @param UpdateCommunityRequest $request
+     * @param Community $community
+     * @return CommunityResource
      */
-    public function update(Request $request, Community $community)
+    public function update(UpdateCommunityRequest $request, Community $community)
     {
-        //
+        $community->update([
+            'name'=> $request->name,
+        ]);
+        return new CommunityResource($community);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
+     * @param Community $community
+     * @return bool|null
      */
     public function destroy(Community $community)
     {
-        //
+        return $community->delete();
     }
 }
