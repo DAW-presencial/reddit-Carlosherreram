@@ -24,7 +24,7 @@ class StoreCommunityRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>['required','string','max:25'],
+            'name' =>['required','string','max:25','min:3'],
         ];
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\CommunityController;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,26 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource("communities",CommunityController::class);
+//Públicas
+Route::apiResource("communities",CommunityController::class)
+->except(['store','update','destroy']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
+Route::apiResource("posts",PostController::class)
+    ->except(['store','update','destroy']);
+//Protegidas
+Route::apiResource("communities",CommunityController::class)
+    ->only(['store','update','destroy'])
+    ->middleware('auth:sanctum');
+
+
+Route::apiResource("posts",PostController::class)
+    ->only(['store','update','destroy'])
+    ->middleware('auth:sanctum');
+
+Route::post("nuevoToken",[UserController::class,'nuevoToken']);
+Route::post("register",[UserController::class,'register']);
+
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/

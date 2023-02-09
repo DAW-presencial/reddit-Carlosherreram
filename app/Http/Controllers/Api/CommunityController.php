@@ -31,6 +31,7 @@ class CommunityController extends Controller
      */
     public function store(StoreCommunityRequest $request)
     {
+        $request->validated($request->all());
         $comunidad = Community::create([
             'name'=> $request->name,
         ]);
@@ -58,6 +59,7 @@ class CommunityController extends Controller
      */
     public function update(UpdateCommunityRequest $request, Community $community)
     {
+        $request->validated($request->all());
         $community->update([
             'name'=> $request->name,
         ]);
