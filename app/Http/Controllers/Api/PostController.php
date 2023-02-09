@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -29,6 +30,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $request->validated($request->all());
+        /*
         $post = Post::create([
             'community_id' => $request->community,
             'user_id' => auth()->user()->id,
@@ -36,6 +38,17 @@ class PostController extends Controller
             'content'=> $request->contenido,
         ]);
         return new PostResource($post);
+        */
+        $post=[
+            'community_id' => $request->community,
+            'user_id' => auth()->user()->id,
+            'title'=> $request->title,
+            'content'=> $request->contenido,
+            'created_at'=>now(),
+            'updated_at'=>now(),
+        ];
+        DB::table('posts')->insert($post);
+        return  $post;
     }
 
     /**

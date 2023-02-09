@@ -23,6 +23,9 @@ Route::apiResource("communities",CommunityController::class)
 
 Route::apiResource("posts",PostController::class)
     ->except(['store','update','destroy']);
+
+Route::post("nuevoToken",[UserController::class,'nuevoToken']);
+Route::post("register",[UserController::class,'register']);
 //Protegidas
 Route::apiResource("communities",CommunityController::class)
     ->only(['store','update','destroy'])
@@ -33,8 +36,7 @@ Route::apiResource("posts",PostController::class)
     ->only(['store','update','destroy'])
     ->middleware('auth:sanctum');
 
-Route::post("nuevoToken",[UserController::class,'nuevoToken']);
-Route::post("register",[UserController::class,'register']);
+
 
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
