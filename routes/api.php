@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\CommunityController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
@@ -24,6 +25,9 @@ Route::apiResource("communities",CommunityController::class)
 Route::apiResource("posts",PostController::class)
     ->except(['store','update','destroy']);
 
+Route::apiResource("comments",CommentController::class)
+    ->except(['store','update','destroy']);
+
 Route::post("nuevoToken",[UserController::class,'nuevoToken']);
 Route::post("register",[UserController::class,'register']);
 //Protegidas
@@ -37,6 +41,9 @@ Route::apiResource("posts",PostController::class)
     ->middleware('auth:sanctum');
 
 
+Route::apiResource("comments",CommentController::class)
+    ->only(['store','update','destroy'])
+    ->middleware('auth:sanctum');
 
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
