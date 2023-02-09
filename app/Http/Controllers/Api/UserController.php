@@ -24,19 +24,19 @@ class UserController extends Controller
      */
     public function nuevoToken(Request $request)
     {
-        /*
+
         $credenciales =$request->validate([
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ]);
 
         if(Auth::attempt($credenciales)){
-            $user =User::where('email','=',$request->email)->get();
+            $user = User::where('email',$request->email)->first();
             return ['user'=> $user,
                 'token'=>$user->createToken('Api Token de '.$user->name)->plainTextToken];
         }
         return $this->error('','Credenciales incorrectas',401);
-        */
+
     }
 
     /**

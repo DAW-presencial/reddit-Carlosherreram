@@ -25,7 +25,8 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => ['string','required','max:60'],
-            'content' => ['string','required','max:255']
+            'contenido' => ['string','required','max:255'],
+            'community'=>['int'],
         ];
     }
 }

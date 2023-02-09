@@ -28,9 +28,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $post=Post::create([
-            'title'=>$request->title,
-            'content'=>$request->contenido,
+        $request->validated($request->all());
+        $post = Post::create([
+            'community_id' => $request->community,
+            'user_id' => auth()->user()->id,
+            'title'=> $request->title,
+            'content'=> $request->contenido,
         ]);
         return new PostResource($post);
     }
@@ -53,9 +56,13 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //
+        $request->validated($request->all());
+        $post->update([
+            'title'=>$request->title,
+            'content'=>$request->contenido
+        ]);
     }
 
     /**
