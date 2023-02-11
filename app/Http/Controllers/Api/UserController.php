@@ -35,7 +35,7 @@ class UserController extends Controller
             return ['user'=> $user,
                 'token'=>$user->createToken('Api Token de '.$user->name)->plainTextToken];
         }
-        return $this->error('','Credenciales incorrectas',401);
+        return $this->error($request->email,'Credenciales incorrectas',401);
 
     }
 
