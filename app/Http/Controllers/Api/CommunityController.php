@@ -7,12 +7,14 @@ use App\Http\Requests\StoreCommunityRequest;
 use App\Http\Requests\UpdateCommunityRequest;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class CommunityController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +49,9 @@ class CommunityController extends Controller
      */
     public function show(Community $community)
     {
+
         return new CommunityResource($community);
+
     }
 
     /**

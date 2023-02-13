@@ -67,4 +67,10 @@ class CommunityTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_can_return_a_json_api_error_object_when_a_comunidad_is_not_found(){
+        $response = $this->get('/api/communities/678');
+        $response->assertJson([]);
+
+    }
+
 }
