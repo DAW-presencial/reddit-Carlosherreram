@@ -24,6 +24,18 @@ class CommunityTest extends TestCase
         $response = $this->get('/api/communities/1');
         $response->assertStatus(200);
     }
+    public function test_name_community_required(){
+        $data=["name"=>"Huberto",
+            "email"=>"Huberto@prueba.es",
+            "password"=>"test1234",
+            "password_confirmation"=>"test1234",];
+        $response= $this->postJson('/api/register',$data,['Content-Type' => 'application/vnd.api+json']);
+        $token = $response->json('token');
+
+        $response = $this->postJson('/api/communities',['name'=>''],['Authorization' => 'Bearer '.$token]);
+        $response->assertStatus(422);
+
+    }
 
     public function test_can_create_community(){
 
